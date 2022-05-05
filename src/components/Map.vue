@@ -1,56 +1,60 @@
 <template>
-  <div>
-    <div>
-      <h2>Search and add a pin</h2>
-    </div>
-    <br>
-    <GmapMap
-      :center='center'
-      :zoom='12'
-      style='width:100%;  height: 400px;'
-    >
-    </GmapMap>
+  <div class="map-wrap">
+   
+    <div class="map" ref="mapContainer"></div>
   </div>
 </template>
 
 <script>
+import { Map, NavigationControl, Marker } from 'maplibre-gl';
+import { shallowRef, onMounted, onUnmounted, markRaw } from 'vue';
 export default {
-  name: 'GoogleMap',
-  data() {
-    return {
-      center: { lat: 45.508, lng: -73.587 },
-      currentPlace: null,
-      markers: [],
-      places: [],
-    }
-  },
-  mounted() {
-    this.geolocate();
-  },
-  methods: {
-    setPlace(place) {
-      this.currentPlace = place;
-    },
-    addMarker() {
-      if (this.currentPlace) {
-        const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng(),
-        };
-        this.markers.push({ position: marker });
-        this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;
+  name: "Map",
+  setup () {
+    const mapContainer = shallowRef(null);
+    const map = shallowRef(null);
+    onMounted(() => {
+      const apiKey = 'iWsHIKpRfQvlERGlJeGs'
+      if (apiKey == null) {
+        throw new Error("You need to configure env VUE_APP_API_KEY first, see README");
       }
-    },
-    geolocate: function() {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-      });
-    },
-  },
+      const initialState = { lng: 100.250222662364, lat: 13.743010787479314, zoom: 14 };
+      map.value = markRaw(new Map({
+        container: mapContainer.value,
+        style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
+        center: [initialState.lng, initialState.lat],
+        zoom: initialState.zoom
+      }));
+      map.value.addControl(new NavigationControl(), 'top-right');
+      new Marker({color: "#FF0000"})
+        .setLngLat([100.250222662364, 13.743010787479314])
+        .addTo(map.value);
+    });
+    onUnmounted(() => {
+      map.value?.remove();
+    });
+    return {
+      map, mapContainer
+    };
+  }
 };
 </script>
+<style scoped>
+@import '~maplibre-gl/dist/maplibre-gl.css';
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 77px); /* calculate height of the screen minus the heading */
+}
+.map {
+  position: absolute;
+  width: 70%;
+  height: 50%;
+}
+.watermark {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 999;
+}
+</style>
