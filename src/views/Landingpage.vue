@@ -14,16 +14,18 @@
     </div>
     <!-- detail -->
     <div>
-        
+        <Map/>
     </div>
   </div>
 </template>
 
 <script>
-
+import Map from '../components/Map';
 export default {
   name: 'Landingpage',
-
+  components:{
+    Map
+  }
 }
 </script>
 <style>
