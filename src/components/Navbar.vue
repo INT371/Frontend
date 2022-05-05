@@ -5,7 +5,7 @@
             <!-- navbar -->
             <div class="flex justify-center justify-items-center bg-gray-900  text-white w-screen h-20">
                 <a class="text-3xl font-bold font-heading hover:text-blue-400 duration-300 py-4">
-                    TEST </a>
+                    RVcomfort </a>
             </div>
 
             <div class="flex  justify-around  bg-gray-50 text-gray-700 w-screen">
@@ -15,8 +15,14 @@
                         </a></router-link>  
                 </div>
                  <div class="px-5  py-4  items-center">
-                    <router-link to="/"><a class="text-xl font-medium font-heading hover:text-gray-300 duration-300">
+                    <router-link to="/about"><a class="text-xl font-medium font-heading hover:text-gray-300 duration-300">
                             About
+                        </a></router-link>
+                      
+                </div>
+                   <div class="px-5  py-4  items-center">
+                    <router-link to="/register"><a class="text-xl font-medium font-heading hover:text-gray-300 duration-300">
+                            Register
                         </a></router-link>
                       
                 </div>
