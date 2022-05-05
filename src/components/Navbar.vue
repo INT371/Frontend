@@ -27,7 +27,7 @@
                       
                 </div>
                 <div class="px-5  py-4  items-center">
-                    <router-link to="/register"><a class="text-xl font-medium font-heading hover:text-gray-300 duration-300">
+                    <router-link to="/login"><a class="text-xl font-medium font-heading hover:text-gray-300 duration-300">
                             Login
                         </a></router-link>
                       
