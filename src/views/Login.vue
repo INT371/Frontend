@@ -2,7 +2,7 @@
 
     <nav-bar></nav-bar>
     <div class="flex justify-center h-screen">
-        <form class="w-full md:w-1/3 bg-white rounded-lg border-t-2 border-b-2 border-green-500 shadow-md h-2/4 mt-32"
+        <form class="w-full md:w-1/3 bg-white rounded-lg border-t-2 border-b-2 border-blue-900 shadow-md h-2/4 mt-32"
                 @submit.prevent="submitForm">
             <div class="flex font-bold justify-center mt-6">
                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-person-check-fill" viewBox="0 0 16 16">
@@ -10,7 +10,7 @@
   <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
 </svg>
             </div>
-            <h2 class="text-3xl text-center text-gray-700 mt-4">NPN MEMBER</h2>
+            <h2 class="text-3xl text-center text-gray-700 mt-4">RV Comfort</h2>
             <h2 class="text-xl text-center text-red-500" v-if="loginfail">Invalid username or password</h2>
             <div class="px-12 pb-10 space-y-3">
                 <div class="w-full ">
@@ -32,7 +32,7 @@
                  <span v-if="invalidpassword" class="text-red-500 text-sm">Please Enter Your Password</span>
                 <router-link to="/Register"><a href="#" class="text-xs text-gray-500 float-right mb-4 -ml-2">Create Account?</a></router-link>
                 <button type="submit"
-                    class="w-full py-2 rounded-full bg-green-600 text-gray-100  focus:outline-none">Login</button>
+                    class="w-full py-2 rounded-full bg-blue-900 text-gray-100  focus:outline-none">Login</button>
             </div>
         </form>
     </div>
