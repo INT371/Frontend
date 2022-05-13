@@ -61,7 +61,7 @@
                         v-if="this.Form == 1" 
                         @click="ValidateForm1"
                         type="submit"
-                        class="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1 tracking-widest"
+                        class="w-full text-center py-3 rounded bg-blue-900 text-white hover:bg-blue-600 focus:outline-none my-1 tracking-widest"
                     >NEXT</button>
 
                     <div class="text-center text-sm text-grey-dark mt-4">
