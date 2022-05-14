@@ -39,12 +39,12 @@
 </template>
 <script>
 import axios from 'axios'
-import jwt_decode from 'jwt-decode'
+// import jwt_decode from 'jwt-decode'
 export default {
   name: "login",
 data() {
         return {
-            backend_url: 'process.env.VUE_APP_BACKEND_URL',
+            backend_url: 'http://localhost:8083/api',
             username: '',
             password: '',
             invalidusername: false,
@@ -71,9 +71,10 @@ data() {
             const access_token = data.access_token
             localStorage.setItem("access_token",access_token)  
             localStorage.setItem("refresh_token",data.refresh_token) 
-            const user = jwt_decode(data.access_token)
-            this.$store.dispatch('fetchUser', {user, access_token})
+            // const user = jwt_decode(data.access_token)
+            // this.$store.dispatch('fetchUser', {user, access_token})
             this.$router.push( { path: "/"} )
+            alert('Login successed')
             
         },
         makeFormData() {
