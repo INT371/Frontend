@@ -174,13 +174,13 @@
 </template>
 <script>
 import axios from "axios";
-import jwt_decode from 'jwt-decode'
+// import jwt_decode from 'jwt-decode'
 
 export default {
     name: "Register",
     data() {
         return {
-            backend_url: ' ',
+            backend_url: 'http://localhost:8083/api',
             username: '',
             password: '',
             confirmPassword: '',
@@ -244,27 +244,25 @@ export default {
                 this.invalidDob = dob > dateNow ? true : false
             }
             if (!this.invalidFname && !this.invalidLname && !this.invalidEmail && !this.invalidDob && !this.invalidTel && !this.invalidAddress) {
-                // this.makeForm()
+                 this.makeForm()
                 alert('Register')
             }
 
         },
         async makeForm() {
             let user = {
-                uid: 0,
                 username: this.username,
                 password: this.password,
-                fname: this.fname,
-                lname: this.lname,
-                dob: this.dob,
-                address: this.address,
                 email: this.email,
-                tel: this.tel,
-                role: 'ROLE_CUSTOMER',
-                deleted: 0
+                first_name: this.fname,
+                last_name: this.lname,
+                date_of_birth: this.dob,
+                address: this.address,
+                tel_no: this.tel,
+        
             }
 
-            const res = await axios.post(`${this.backend_url}/user/save`, user).catch(function (error) {
+            const res = await axios.post(`${this.backend_url}/v1/user`, user).catch(function (error) {
                 if (error.response) {
                     alert(error.response.data.message);
                 } else if (error.request) {
@@ -349,8 +347,8 @@ export default {
             const access_token = data.access_token
             localStorage.setItem("access_token", access_token)
             localStorage.setItem("refresh_token", data.refresh_token)
-            const user = jwt_decode(data.access_token)
-            this.$store.dispatch('fetchUser', { user, access_token })
+            // const user = jwt_decode(data.access_token)
+            // this.$store.dispatch('fetchUser', { user, access_token })
             this.$router.push({ path: "/" })
         }
 
