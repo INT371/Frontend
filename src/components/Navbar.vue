@@ -14,6 +14,11 @@
                             Home
                         </a></router-link>  
                 </div>
+                  <div class="px-5  py-4  items-center">
+                    <router-link to="/showroom"><a class="text-xl font-medium font-heading hover:text-gray-300 duration-300">
+                            Rooms
+                        </a></router-link>  
+                </div>
                  <div class="px-5  py-4  items-center">
                     <router-link to="/about"><a class="text-xl font-medium font-heading hover:text-gray-300 duration-300">
                             About

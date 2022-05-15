@@ -14,12 +14,8 @@
     <!-- detail -->
     <!--TODO Multiple Slide show 3 rooms-->
     <div class="flex">
-    <div v-for="room in rooms" :key="room.name">
-    <div class="container px-5 py-11">
-       <RoomCard :name="room.name" :detail="room.detail" :price="room.price" :image="room.image" />
+    
     </div>
-       </div>
-      </div>
  
     <div class="flex justify-between">
       <div class="container"> <Map class="py-10 pl-28"/></div>
@@ -34,12 +30,12 @@
 
 <script>
 import Map from '../components/Map';
-import RoomCard from '../components/RoomCard';
+
 
 export default {
   name: 'Landingpage',
   components: {
-    Map,RoomCard
+    Map
   },
   data(){
     return {
