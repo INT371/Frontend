@@ -6,7 +6,8 @@ const backend_url = 'http://localhost:8083/api'
 export default createStore({
     state:{
     rooms : [],
-    room : null
+    room : null,
+    types : []
     },
     mutations:{
         setRoom(state,i){
@@ -14,6 +15,9 @@ export default createStore({
         },
         setSingleRoom(state,i){
             state.room = i.room
+        },
+        setTypeRoom(state,i){
+            state.types = i.types
         }
     },
     actions:{
@@ -28,6 +32,12 @@ export default createStore({
             const room = res.data
             console.log(room);
             commit('setSingleRoom',{room})
+        },
+        async fetchTypeRoom({commit}){
+            const res = await axios.get(`${backend_url}/v1/type`)
+            const types = res.data
+            console.log(types);
+            commit('setTypeRoom',{types})
         }
     },
     modules: {
