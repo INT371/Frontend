@@ -7,7 +7,8 @@ export default createStore({
     state:{
     rooms : [],
     room : null,
-    types : []
+    types : [],
+    type : null
     },
     mutations:{
         setRoom(state,i){
@@ -18,6 +19,9 @@ export default createStore({
         },
         setTypeRoom(state,i){
             state.types = i.types
+        },
+        setSingleTypeRoom(state,i){
+            state.type = i.type
         }
     },
     actions:{
@@ -38,6 +42,20 @@ export default createStore({
             const types = res.data
             console.log(types);
             commit('setTypeRoom',{types})
+        },
+        async fetchSingleTypeRoom({commit},i){
+            const res = await axios.get(`${backend_url}/v1/type/id/${i.tid}`)
+            const type = res.data
+            console.log(type);
+            commit('setSingleTypeRoom',{type})
+        },
+        async reservation(i){
+            const res = await axios.post(`${backend_url}/v1/reservation/reserve`,i.formData)
+            if (res.status != 200) {
+                alert("An Unexpected Error Occured. Response Status: " + res.status)
+            } else {
+                alert("Successfully Reserve.")
+            }
         }
     },
     modules: {

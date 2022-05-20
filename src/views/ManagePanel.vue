@@ -9,7 +9,7 @@
                 :class="{'bg-gray-600': this.case == 1, 'bg-white': this.case != 1}"
             >Room Manage</button>
         </li>
-
+        
          <li class="mr-1">
             <button
             @click="this.case=2"
