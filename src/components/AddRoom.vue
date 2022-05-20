@@ -175,7 +175,7 @@ export default {
                  if (res.status != 200) {
                     alert("An Unexpected Error Occured. Response Status: " + res.status)
                 } else {
-                    alert("Successfully Add Product.")
+                    alert("Successfully Add Room.")
                 }
             } catch (error) {
                  console.log(error);
