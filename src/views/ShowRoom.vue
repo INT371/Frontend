@@ -2,11 +2,16 @@
   <nav-bar></nav-bar>
   <div>
     <!-- display room list -->
-    <div v-for="room in rooms" :key="room.roomId">
+    <div v-for="item in types" :key="item.type_id">
       <div class="container px-5 py-2">
-        <RoomCard :roomId="room.roomId" :name="room.room_name" :detail="room.room_type.description"
-          :price="room.room_type.price" :policy="room.room_type.policy" :type_name="room.room_type.type_name"
-          :image="room.image" />
+        <RoomTypeCard :description="item.description"
+          :price="item.price" :policy="item.policy" 
+          :max_capacity="item.max_capacity"
+          :type_name="item.type_name"
+          :image="item.image" 
+          :type_id="item.type_id"
+          />
+          
       </div>
     </div>
   </div>
@@ -17,20 +22,21 @@
 import { computed } from '@vue/reactivity'
 import { useStore } from 'vuex'
 
-import RoomCard from '../components/RoomCard';
+import RoomTypeCard from '../components/RoomTypeCard';
 
 export default {
   name: "showRoom",
   components: {
-    RoomCard
+    RoomTypeCard
   },
-  setup() {
-    const store = useStore();
-    store.dispatch('fetchAllRoom')
+     setup() {
+        const store = useStore();
+        
+        store.dispatch('fetchTypeRoom')
 
-    return {
-      rooms: computed(() => store.state.rooms)
-    }
+        return {
+            types: computed(() => store.state.types)
+        }
   }
 }
 </script>

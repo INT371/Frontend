@@ -18,14 +18,14 @@
         </div>
       </div>
       <div class="flex-1 px-4">
-        <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">{{room.room_name}}</h2>
-        <p class="text-gray-500 text-sm">Room Type <a href="#" class="text-indigo-600 hover:underline">{{room.room_type.description}}</a></p>
+        <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">{{type.type_name}}</h2>
+        <p class="text-gray-500 text-sm">Room Type <a href="#" class="text-indigo-600 hover:underline">{{type.description}}</a></p>
 
         <div class="flex items-center space-x-4 my-4">
           <div>
             <div class="rounded-lg bg-gray-100 flex py-2 px-3">
               <span class="text-indigo-400 mr-1 mt-1">฿</span>
-              <span class="font-bold text-indigo-600 text-3xl">{{room.room_type.price}}.00</span>
+              <span class="font-bold text-indigo-600 text-3xl">{{type.price}}.00</span>
             </div>
           </div>
           <div class="flex-1">
@@ -37,9 +37,9 @@
         <div class="flex py-4 space-x-4">
         <div class="col-span-1 text-center">
         <p class="font-bold text-indigo-600 text-sm">CAPACITY</p>
-        <p class="text-indigo-600 text-sm">{{room.room_type.max_capacity}}</p>
+        <p class="text-indigo-600 text-sm">{{type.max_capacity}}</p>
         </div>
-          <button type="button" class="h-14 px-6 py-2 font-semibold rounded-xl bg-blue-600 hover:bg-blue-800 text-white">
+          <button @click="reserve" type="button" class="focus:outline-none  h-14 px-6 py-2 font-semibold rounded-xl bg-blue-600 hover:bg-blue-800 text-white">
            Reserve
           </button>
         </div>
@@ -70,13 +70,17 @@ export default {
             ]
         }
     },
-
+  methods:{
+    async reserve(){
+      console.log("test");
+    }
+  },
    setup(props){
         const store = useStore();
-        store.dispatch('fetchSingleRoom',{rid:props.singleRoom})
+        store.dispatch('fetchSingleTypeRoom',{tid:props.singleRoom})
 
         return {
-             room : computed(()=> store.state.room)
+             type : computed(()=> store.state.type)
         }
     }   
 
