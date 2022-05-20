@@ -49,7 +49,8 @@ const routes = [
     path: '/manage',
     name:'ManagePanel',
     component: ManagePanel
-  }
+  },
+  
  
 ]
 
