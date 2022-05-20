@@ -15,7 +15,6 @@
             </div>
           </div>
             <!-- TODO make gallery -->
-           
         </div>
       </div>
       <div class="flex-1 px-4">
