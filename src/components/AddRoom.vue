@@ -31,7 +31,7 @@
                                     <option v-for="item in types" :key="item.type_id" :value="item">{{ item.type_name }}
                                     </option>
                                 </select>
-                                 <p v-if="invalidType" class="text-red-500 text-sm font-semibold uppercase">—
+                                <p v-if="invalidType" class="text-red-500 text-sm font-semibold uppercase">—
                                     &nbsp;&nbsp;Select Room Type&nbsp;&nbsp; —</p>
                             </div>
                             <div class="pl-4">
@@ -97,7 +97,7 @@
                 <div class="p-4 flex space-x-4">
                     <button @click="cancelForm().then(cancel)"
                         class="w-1/2 px-4 py-3 text-center bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-black font-bold rounded-lg text-sm">Cancel</button>
-                    <button @click="submitForm().then( success ? confirm : null)"
+                    <button @click="submitForm().then(success ? confirm : null)"
                         class="w-1/2 px-4 py-3 text-center text-pink-100 bg-pink-600 rounded-lg hover:bg-pink-700 hover:text-white font-bold text-sm">Add
                         Room</button>
                 </div>
@@ -119,7 +119,7 @@ export default {
     props: ['show', 'cancel', 'confirm'],
     data() {
         return {
-            success:false,
+            success: false,
 
             roomId: 0,
             name: "",
@@ -167,18 +167,18 @@ export default {
                 type_id: this.type.type_id
             }
             this.saveDataRoom(room)
-             this.success = true
+            this.success = true
         },
-        async saveDataRoom(data){
+        async saveDataRoom(data) {
             try {
-                const res = await axios.post(`http://localhost:8083/api/v1/room`,data)
-                 if (res.status != 200) {
+                const res = await axios.post(`http://localhost:8083/api/v1/room`, data)
+                if (res.status != 200) {
                     alert("An Unexpected Error Occured. Response Status: " + res.status)
                 } else {
                     alert("Successfully Add Room.")
                 }
             } catch (error) {
-                 console.log(error);
+                console.log(error);
             }
         },
 
