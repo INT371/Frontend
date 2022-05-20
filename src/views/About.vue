@@ -1,7 +1,7 @@
 <template>
 <nav-bar class="z-50"></nav-bar>
  <div class="h-screen flex justify-center items-center body" id="bodyAbout" >
-    <div class=" text-white p-3 w-full md:w-1/2 lg:w-1/4 lg:h-2/4 rounded text-center py-8 hover:shadow-md cursor-pointer ml-10 mb-20 zoom"
+    <div class=" text-white p-3 rounded text-center py-8 hover:shadow-md cursor-pointer ml-10 mb-20"
          v-for="members in member" :key="members.id">
          <div class="container">
 			<div class="avatar">

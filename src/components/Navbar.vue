@@ -37,6 +37,12 @@
                         </a></router-link>
                       
                 </div>
+                 <div class="px-5  py-4  items-center">
+                    <router-link to="/manage"><a class="text-xl font-medium font-heading hover:text-gray-300 duration-300">
+                            Manage Panel
+                        </a></router-link>
+                      
+                </div>
             </div>
             
         </section>

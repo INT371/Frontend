@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import About from '../views/About.vue'
 import ShowRoom from '../views/ShowRoom.vue'
 import SingleRoom from '../views/SingleRoom.vue'
+import ManagePanel from '../views/ManagePanel.vue'
 
 const routes = [
   {
@@ -43,6 +44,11 @@ const routes = [
     name: 'singleRoom',
     component: SingleRoom,
     props: true
+  },
+  {
+    path: '/manage',
+    name:'ManagePanel',
+    component: ManagePanel
   }
  
 ]
