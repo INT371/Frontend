@@ -8,7 +8,17 @@ export default createStore({
     rooms : [],
     room : null,
     types : [],
-    type : null
+    type : null,
+    
+
+    checkin: null,
+    checkout:null,
+    userId:0,
+    roomId:0,
+    reserveName:"",
+    num_of_guest:1,
+
+  
     },
     mutations:{
         setRoom(state,i){
@@ -22,7 +32,13 @@ export default createStore({
         },
         setSingleTypeRoom(state,i){
             state.type = i.type
+        },
+        setDateTime(state,i){
+            state.checkin= i.check_in_date
+            state.checkout= i.check_out_date
+            
         }
+        
     },
     actions:{
         async fetchAllRoom({commit}){
@@ -41,6 +57,9 @@ export default createStore({
             const res = await axios.get(`${backend_url}/v1/type`)
             const types = res.data
             console.log(types);
+
+            console.log("check in date :"+this.state.checkin)
+            console.log("check out date :"+this.state.checkout)
             commit('setTypeRoom',{types})
         },
         async fetchSingleTypeRoom({commit},i){
@@ -49,14 +68,16 @@ export default createStore({
             console.log(type);
             commit('setSingleTypeRoom',{type})
         },
-        async reservation(i){
-            const res = await axios.post(`${backend_url}/v1/reservation/reserve`,i.formData)
-            if (res.status != 200) {
-                alert("An Unexpected Error Occured. Response Status: " + res.status)
-            } else {
-                alert("Successfully Reserve.")
-            }
-        }
+        
+        async saveDateTime({commit},i){
+          
+            const check_in_date  = i.check_in_date
+            const check_out_date = i.check_out_date
+    
+         
+            commit('setDateTime',{check_in_date,check_out_date})
+        },
+       
     },
     modules: {
 
