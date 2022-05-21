@@ -32,11 +32,12 @@
                     </div>
 
                 </div>
+                {{ date }}
                 <div class="flex p-4">
-                    <Datepicker class="mr-4" v-model="checkInDate" placeholder="Check-In Date"
+                    <Datepicker class="mr-4" v-model="checkInDate" placeholder="Check-In Date" utc
                         :enableTimePicker="false">
                     </Datepicker>
-                    <Datepicker v-model="checkOutDate" placeholder="Check-Out Date" :enableTimePicker="false">
+                    <Datepicker v-model="checkOutDate" placeholder="Check-Out Date" utc :enableTimePicker="false">
                     </Datepicker>
                 </div>
                 <div class="px-4">
@@ -73,7 +74,7 @@ export default {
 
             invalidCheckInDate: false,
             invalidCheckOutDate: false,
-            count: 1
+            count: 1,
         };
     },
     methods: {
@@ -82,9 +83,17 @@ export default {
             this.invalidCheckOutDate = this.checkOutDate == null ? true : false
 
             if (!this.invalidCheckInDate && !this.invalidCheckOutDate) {
-            this.$router.push('Showroom') 
+
+              
+                   const check_in_date = this.checkInDate
+                   const check_out_date = this.checkOutDate
+                
+
+                this.$store.dispatch('saveDateTime', { check_in_date,check_out_date })
+
+                this.$router.push('Showroom')
             }
-           
+
 
         },
         async cancelForm() {
@@ -100,7 +109,8 @@ export default {
         increment() {
             this.count += 1
             console.log(this.count);
-        }
+        },
+
     }
 }
 </script>
