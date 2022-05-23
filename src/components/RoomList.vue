@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div class="flex justify-end ">
+        <button class="items-center py-2 px-3 mr-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Add Room Type
+        </button>
+        </div>
         <div v-for="item in types" :key="item.type_id">
             <div class="flex m-4 ">
                 <div class="container border-2 rounded-lg p-4 mr-2">
@@ -18,6 +23,10 @@
                         </div>
 
                         <div class="flex justify-end ">
+                             <button @click="deleteRoomType(item.type_id)" type="button"
+                                class="mr-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Delete Type
+                            </button>
                             <button @click="openDialog(item.type_id)" type="button"
                                 class="mr-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Add room
@@ -56,17 +65,17 @@
 <script>
 import { computed } from '@vue/reactivity'
 import { useStore } from 'vuex'
+import axios from 'axios'
 
 import AddRoom from '../components/AddRoom'
 import RoomListByType from '../components/RoomListByType'
-// import EditType from '../components/EditType'
+
 
 export default {
     name: 'RoomList',
     components: {
         AddRoom,
         RoomListByType,
-        // EditType
     },
     data() {
         return {
@@ -76,6 +85,20 @@ export default {
         }
     },
     methods: {
+
+    async deleteRoomType(tid){
+        let check = confirm("Do you want to delete this Room Type");
+        if (!check) { return }
+        const res = await axios.delete(`http://localhost:8083/api/v1/type/${tid}`).catch(function (error) {
+                if (error) {
+                    alert("An Unexpected Error Occured. Response Status: " + error.response.status)
+                }
+            })
+            if (res != undefined && res.status == 200) {
+                alert("Successfully Delete Type.")
+                this.$store.dispatch('fetchAllRoom')
+            }
+        },
         openDialog(tid){
             this.showDialog = true
             this.type_id = tid
