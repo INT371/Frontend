@@ -17,6 +17,8 @@
                                     v-model="name" require type="text" placeholder="Room Name" />
                                 <p v-if="invalidName" class="text-red-500 text-sm font-semibold uppercase">—
                                     &nbsp;&nbsp;Enter Room Name&nbsp;&nbsp; —</p>
+                                <p v-if="duplicatedName" class="text-red-500 text-sm font-semibold uppercase">—
+                                    &nbsp;&nbsp;Duplicate Room Name&nbsp;&nbsp; —</p>
                             </div>
                         </div>
 
@@ -25,14 +27,8 @@
                                 <label
                                     class=" uppercase md:text-sm text-xs text-black text-light font-semibold pr-6">Room
                                     Type</label>
-                                <select v-model="type" placeholder="Room Type"
-                                    class="py-2 px-3  rounded-lg border-2 border-blue-300 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
-                                    <option disabled value selected>TYPE</option>
-                                    <option v-for="item in types" :key="item.type_id" :value="item">{{ item.type_name }}
-                                    </option>
-                                </select>
-                                <p v-if="invalidType" class="text-red-500 text-sm font-semibold uppercase">—
-                                    &nbsp;&nbsp;Select Room Type&nbsp;&nbsp; —</p>
+                               <span class="py-2 px-3 ">{{ type ? type.type_name : 'Have nothing' }}</span>
+                               
                             </div>
                             <div class="pl-4">
                                 <label
@@ -60,36 +56,7 @@
                                 <span class="py-2 px-3 ">{{ type ? type.max_capacity : 0 }}</span>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 mt-5 mx-7">
-                            <label class="uppercase md:text-sm text-xs text-black text-light font-semibold mb-1">Upload
-                                Photo</label>
-                            <div v-if="!image" class="flex items-center justify-center w-full">
-                                <label
-                                    class="flex flex-col border-4 border-dashed w-full h-52 hover:bg-gray-100 hover:border-blue-300 group duration-300">
-                                    <div class="flex flex-col items-center justify-center pt-12">
-                                        <svg class="w-10 h-10 text-blue-400 group-hover:text-blue-600 duration-300"
-                                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        <p
-                                            class="lowercase text-sm text-gray-400 group-hover:text-blue-600 pt-1 tracking-wider duration-300">
-                                            Select a photo</p>
-                                    </div>
-                                    <input type="file" class="hidden" id="upload-file" accept="image/*" name="file"
-                                        @change="loadFile" />
-                                </label>
-                            </div>
-                            <div v-else
-                                class="grid items-center justify-center border-4 border-dashed hover:border-blue-500 hover:bg-gray-100 duration-500">
-                                <img class="rounded h-40 w-40 mx-auto my-8" :src="getImageUrl(image)" />
-                                <button @click="removeimg"
-                                    class="bg-blue-600 hover:bg-red-500 text-white font-bold py-2 focus:outline-none px-4 rounded-full duration-300 mb-4">Remove
-                                    Photo</button>
-                            </div>
-
-                        </div>
+        
 
                     </div>
 
@@ -116,48 +83,22 @@ import { useStore } from 'vuex'
 
 export default {
     name: 'AddRoom',
-    props: ['show', 'cancel', 'confirm'],
+    props: ['show', 'cancel', 'confirm', 'tid'],
     data() {
         return {
             success: false,
-
             roomId: 0,
             name: "",
-            type: null,
-            image: null,
 
             invalidName: false,
-            invalidType: false,
-            invalidImage: false,
-
-            uploadFile: null
-
+            duplicatedName:false,
+           
         }
     },
-    methods: {
-        getImageUrl(filename) {
-            if (this.isLocal) {
-                return this.image
-            }
-            return `${this.backend_url}/files/${filename}`
-        },
-        loadFile(e) {
-            this.isLocal = true;
-            let file = e.target.files[0];
-            let data = new FormData();
-            data.append("file", file, file.name);
-            this.uploadFile = data.get("file")
-            this.image = URL.createObjectURL(this.uploadFile);
-        },
-        removeimg() {
-            this.image = null;
-        },
+    methods: { 
         async submitForm() {
             this.invalidName = this.name === null || this.name.trim() === '' ? true : false;
-            this.invalidType = this.type === null ? true : false;
-            this.invalidImage = this.image === null ? true : false;
-
-            if ((!this.invalidName && !this.invalidType && this.invalidImage)) {
+            if ((!this.invalidName)) {
                 this.makeDataForm();
             }
         },
@@ -167,40 +108,55 @@ export default {
                 type_id: this.type.type_id
             }
             this.saveDataRoom(room)
-            this.success = true
+        
         },
         async saveDataRoom(data) {
-            try {
-                const res = await axios.post(`http://localhost:8083/api/v1/room`, data)
-                if (res.status != 200) {
-                    alert("An Unexpected Error Occured. Response Status: " + res.status)
-                } else {
-                    alert("Successfully Add Room.")
-                }
-            } catch (error) {
-                console.log(error);
-            }
+            let temp = false
+            let done = false
+            const res = await axios.post(`http://localhost:8083/api/v1/room`, data).catch(function (error){
+                if(error.response.data.errorCodeValue === 20002){
+                  temp = true
+               }
+                else if (res.status != 200 ) {
+                  alert("Unexpected occurred");
+                } 
+            })
+               
+               if(res != undefined && res.status == 200) {
+                this.success = true
+                
+                alert("Successfully Add Room.") 
+                this.reset()
+                window.location.reload();        
+                }             
+                this.duplicatedName = temp
+                console.log(done);  
+            },
+
+      async cancelForm() {
+               this.reset()
         },
-
-        async cancelForm() {
-            this.name = "",
-                this.description = "",
-                this.type = null,
-                this.image = null,
-
-                this.invalidName = false,
-                this.invalidType = false,
-                this.invalidImage = false
+     reset(){
+                this.name = "",
+                this.type = null
+            
+                this.invalidName = false
+                this.duplicatedName = false  
+                this.success  = true  
+               
         }
     },
 
-    setup() {
-        const store = useStore();
-        store.dispatch('fetchTypeRoom')
+ setup(props) {
+    const store = useStore();
 
-        return {
-            types: computed(() => store.state.types)
-        }
+    store.dispatch('fetchSingleTypeRoom', { tid: props.tid })
+
+    return {
+      type: computed(() => store.state.type)
     }
+  },
+
 }
+
 </script>
