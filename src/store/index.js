@@ -18,6 +18,7 @@ export default createStore({
     reserveName:"",
     num_of_guest:1,
 
+    reserveDetail: {}
   
     },
     mutations:{
@@ -36,7 +37,10 @@ export default createStore({
         setDateTime(state,i){
             state.checkin= i.check_in_date
             state.checkout= i.check_out_date
-            
+            state.num_of_guest= i.total
+        },
+        setReserveDetail(state,i){
+            state.reserveDetail = i.data
         }
         
     },
@@ -70,13 +74,17 @@ export default createStore({
         },
         
         async saveDateTime({commit},i){
-          
             const check_in_date  = i.check_in_date
             const check_out_date = i.check_out_date
-    
-         
-            commit('setDateTime',{check_in_date,check_out_date})
+            const total = i.total
+            commit('setDateTime',{check_in_date,check_out_date,total})
         },
+        
+        async saveReserveDetail({commit},i){
+            const data = i.reserveDetail
+            console.log(data);
+            commit('setReserveDetail',data)
+        }
        
     },
     modules: {

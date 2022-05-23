@@ -87,10 +87,10 @@ export default {
               
                    const check_in_date = this.checkInDate
                    const check_out_date = this.checkOutDate
-                
+                   const total = this.count
 
-                this.$store.dispatch('saveDateTime', { check_in_date,check_out_date })
-
+                this.$store.dispatch('saveDateTime', { check_in_date,check_out_date,total })
+             
                 this.$router.push('Showroom')
             }
 

@@ -8,6 +8,7 @@ import ShowRoom from '../views/ShowRoom.vue'
 import SingleRoom from '../views/SingleRoom.vue'
 import ManagePanel from '../views/ManagePanel.vue'
 import EditType from '../components/EditType.vue'
+import ReserveDetail from '../views/ReserveDetail.vue'
 
 const routes = [
   {
@@ -56,6 +57,11 @@ const routes = [
     name: 'editType',
     component: EditType,
     props:true
+  },
+  {
+    path: '/reserve/detail',
+    name: 'reserveDetail',
+    component: ReserveDetail
   }
  
 ]
