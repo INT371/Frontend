@@ -74,8 +74,8 @@ export default {
     async reserve() {
       console.log("reservation method");
       let formData = {
-        user_id: 2,
-        room_id:10,
+        user_id: 3,
+        room_id:15,
         check_in_date: this.checkin,
         check_out_date: this.checkout,
         reserved_name: "test",
@@ -93,7 +93,7 @@ export default {
               this.$store.dispatch('saveReserveDetail',{reserveDetail})
               alert("Successfully Reserve.")
                 
-              this.$router.push( { path: "/reserve/detail"} )
+              this.$router.push( { path: "/"} )
             }
 
 
