@@ -12,7 +12,7 @@
                         <div class="flex space-x-2">
                             <div v-for="image in item.images" :key="image.id">
                                 <div>
-                                    <img :src="image.image" class="w-12 h-12">
+                                    <img :src="getImages(image.image)" class="w-12 h-12">
                                 </div>
                             </div>
                         </div>
@@ -76,6 +76,10 @@ export default {
         }
     },
     methods: {
+
+         getImages(image){
+      return `http://localhost:8083/api/v1/image/room/${image}`
+    }, 
         openDialog(tid){
             this.showDialog = true
             this.type_id = tid
