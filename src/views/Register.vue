@@ -180,7 +180,7 @@ export default {
     name: "Register",
     data() {
         return {
-            backend_url: 'http://localhost:8083/api',
+            backend_url: process.env.VUE_APP_BACKEND_URL,
             username: '',
             password: '',
             confirmPassword: '',

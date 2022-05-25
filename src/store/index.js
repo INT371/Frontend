@@ -1,15 +1,14 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 
-const backend_url = 'http://localhost:8083/api'
+const backend_url = process.env.VUE_APP_BACKEND_URL
 
 export default createStore({
     state:{
-    rooms : [],
-    room : null,
-    types : [],
-    type : null,
-    
+        rooms : [],
+        room : null,
+        types : [],
+        type : null,
 
     checkin: null,
     checkout:null,
@@ -19,7 +18,6 @@ export default createStore({
     num_of_guest:1,
 
     reserveDetail: {}
-  
     },
     mutations:{
         setRoom(state,i){
@@ -72,7 +70,6 @@ export default createStore({
             console.log(type);
             commit('setSingleTypeRoom',{type})
         },
-        
         async saveDateTime({commit},i){
             const check_in_date  = i.check_in_date
             const check_out_date = i.check_out_date
