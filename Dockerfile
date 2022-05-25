@@ -1,4 +1,4 @@
-FROM node:18.2.0-alpine3.15 as build
+FROM node:18.2.0 as build
 WORKDIR /app
 ARG backend_url
 ENV VUE_APP_BACKEND_URL=$backend_url
