@@ -74,22 +74,26 @@ export default {
     async reserve() {
       console.log("reservation method");
       let formData = {
-        user_id: 2,
-        room_id:5,
+        user_id: 3,
+        room_id:15,
         check_in_date: this.checkin,
         check_out_date: this.checkout,
         reserved_name: "test",
-        num_of_guest: 2
+        num_of_guest: this.num_of_guest
       }
 
        const res = await axios.post(`${this.backend_url}/v1/reservation/reserve`,formData)
             if (res.status != 200) {
-              
                console.log(res.data);
                 alert("An Unexpected Error Occured. Response Status: " + res.status)
             } else {
                console.log(res.data);
-                alert("Successfully Reserve.")
+
+              const reserveDetail = res.data
+              this.$store.dispatch('saveReserveDetail',{reserveDetail})
+              alert("Successfully Reserve.")
+                
+              this.$router.push( { path: "/"} )
             }
 
 
@@ -103,7 +107,8 @@ export default {
     return {
       type: computed(() => store.state.type),
       checkin: computed(()=> store.state.checkin),
-      checkout: computed(()=> store.state.checkout)
+      checkout: computed(()=> store.state.checkout),
+      num_of_guest: computed(()=> store.state.num_of_guest)
     }
   }
 
