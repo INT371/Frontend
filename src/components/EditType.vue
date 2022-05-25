@@ -118,6 +118,8 @@ export default {
     data() {
         return {
 
+            backend_url: process.env.VUE_APP_BACKEND_URL,
+
             type: {},
 
             invalidDescription: false,
@@ -128,6 +130,7 @@ export default {
             invalidImage: false,
             image: null,
             uploadFile: null
+            
 
         }
     },
@@ -184,7 +187,7 @@ export default {
         },
         async saveDataRoom(data) {
             try {
-                const res = await axios.patch(`http://localhost:8083/api/v1/type`,{params:{typeId : this.type.type_id}},data)
+                const res = await axios.patch(`${this.backend_url}/v1/type`,{params:{typeId : this.type.type_id}},data)
                 if (res.status != 200) {
                     alert("An Unexpected Error Occured. Response Status: " + res.status)
                 } else {
@@ -196,7 +199,7 @@ export default {
         },
 
         async fetchSingleTypeRoom(tid) {
-            const res = await axios.get(`http://localhost:8083/api/v1/type/id/${tid}`)
+            const res = await axios.get(`${this.backend_url}/v1/type/id/${tid}`)
             this.type = res.data
             console.log(this.type);
 

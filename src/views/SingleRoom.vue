@@ -67,7 +67,7 @@ export default {
 
   data() {
     return {
-
+      backend_url: process.env.VUE_APP_BACKEND_URL
     }
   },
   methods: {
@@ -82,7 +82,7 @@ export default {
         num_of_guest: 2
       }
 
-       const res = await axios.post(`http://localhost:8083/api/v1/reservation/reserve`,formData)
+       const res = await axios.post(`${this.backend_url}/v1/reservation/reserve`,formData)
             if (res.status != 200) {
               
                console.log(res.data);

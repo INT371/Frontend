@@ -86,6 +86,7 @@ export default {
     props: ['show', 'cancel', 'confirm', 'tid'],
     data() {
         return {
+            backend_url: process.env.VUE_APP_BACKEND_URL,
             success: false,
             roomId: 0,
             name: "",
@@ -113,7 +114,7 @@ export default {
         async saveDataRoom(data) {
             let temp = false
             let done = false
-            const res = await axios.post(`http://localhost:8083/api/v1/room`, data).catch(function (error){
+            const res = await axios.post(`${this.backend_url}/v1/room`, data).catch(function (error){
                 if(error.response.data.errorCodeValue === 20002){
                   temp = true
                }
