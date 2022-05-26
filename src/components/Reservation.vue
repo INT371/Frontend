@@ -1,5 +1,6 @@
 <template>
-    <div v-show="show"
+    <div></div>
+    <!-- <div v-show="show"
         class=" fixed w-screen h-screen  z-50 top-72 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-75 bg-gray-700 pt-10">
         <div class=" flex justify-center items-center ">
             <div class="bg-white  border-t-8 border-blue-600 rounded-lg">
@@ -53,20 +54,22 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 
 </template>
 
 <script>
-import Datepicker from '@vuepic/vue-datepicker';
+// import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
 export default {
     name: 'Reservation',
     props: ['show', 'cancel', 'confirm'],
-    components: { Datepicker },
+    components: { 
+        // Datepicker 
+        },
     data() {
         return {
             checkInDate: null,
