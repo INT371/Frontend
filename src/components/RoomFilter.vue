@@ -48,16 +48,13 @@
                 </div>
                 <div class="px-4">
                     <p class="text-red-500 justify-center" v-if="invalidDateCheck.error">{{ invalidDateCheck.message }}</p>
-                    <!-- <p class="text-red-500 justify-center" v-if="invalidCheckInDate">Please Select Check-in Date ✘</p>
-                    <p class="text-red-500 justify-center" v-if="invalidCheckOutDate">Please Select Check-out Date ✘</p> -->
                 </div>
             </div>
             <div class="modal-footer">
                 <button id="roomFilterCloseButton" type="button" @click="closeFilter" data-bs-dismiss="modal"
                         class="btn focus:outline-none w-1/3 px-4 py-3 text-center bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-black font-bold rounded-lg text-sm">Cancel</button>
                     <button type="button" @click="filterRoom"
-                        class="btn focus:outline-none w-1/3 px-4 py-3 text-center text-pink-100 bg-pink-600 rounded-lg hover:bg-pink-700 hover:text-white font-bold text-sm">Add
-                        Room</button>
+                        class="btn focus:outline-none w-1/3 px-4 py-3 text-center text-pink-100 bg-pink-600 rounded-lg hover:bg-pink-700 hover:text-white font-bold text-sm">Search</button>
             </div>
             </div>
         </div>
@@ -88,9 +85,6 @@ export default {
         toggleDatePicker(){
             this.$refs.datepicker.openMenu()
         },
-        check() {
-            console.log(this.filterDate)
-        },
         openModal() {
             const openModalButton = document.getElementById('roomFilterModalButton')
             if (openModalButton) {
@@ -99,6 +93,10 @@ export default {
         },
         filterValidation(date) {
             this.invalidDateCheck = { error: false, message: null }
+            if (!date[0] || !date[1]){
+                this.invalidDateCheck = {error: true, message: 'Please select both start date and end date ✘'}
+                return false
+            }
             date.forEach(d => {
                 d.setHours(12)
                 d.setMinutes(0)
@@ -107,10 +105,6 @@ export default {
 
             if (date.length <= 0){
                 this.invalidDateCheck = {error: true, message: 'Please select Reserved date ✘'}
-                return false
-            }
-            if (!date[0] || !date[1]){
-                this.invalidDateCheck = {error: true, message: 'Please select both start date and end date ✘'}
                 return false
             }
             if (this.numOfGuest <= 0 || this.numOfGuest >= this.maxJavaInteger) {

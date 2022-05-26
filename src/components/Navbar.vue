@@ -1,7 +1,7 @@
 <template>
     <room-filter ref="roomFilter"/>
 
-    <div class="flex flex-wrap place-items-center sticky top-0 shadow-md mb-3 z-50">
+    <div class="flex flex-wrap place-items-center top-0 shadow-md mb-3 z-50"> <!-- TODO: Remove sticky from navbar or not -->
         <section class="mx-auto ">
             <!-- navbar -->
             <div class="flex justify-center justify-items-center bg-gray-900  text-white w-screen h-20">
