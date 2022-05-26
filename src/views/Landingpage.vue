@@ -1,14 +1,14 @@
 <template>
   <div>
     <nav-bar></nav-bar>
-     <Reservation :show="showDialog" :cancel="cancel" :confirm="confirm" />
+     <room-filter ref="roomFilter"/>
     <div class="flex items-center">
       <div class=" w-full h-96 bg-no-repeat bg-center bg-cover bg-local p-24  grid justify-center justify-items-center"
         style="background-image : url('https://images.pexels.com/photos/388415/pexels-photo-388415.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')">
         <p class=" text-white text-6xl font-bold">HOTEL NAME</p>
         <p class=" text-white text-xl font-bold mt-5">ENCHANTED WITH ELEGANCE</p>
-        <button @click="showDialog=true" class="focus:outline-none  mt-24 w-44 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-          RESERVATION >
+        <button @click="openRoomFilterModal" class="focus:outline-none  mt-24 w-44 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+          Get Started >
         </button>
        
       </div>
@@ -32,32 +32,37 @@
 </template>
 
 <script>
+import { computed } from '@vue/runtime-core';
+import { useStore } from 'vuex';
 import Map from '../components/Map';
-import Reservation from '../components/Reservation.vue';
+import RoomFilter from '../components/RoomFilter.vue';
 
 
 export default {
   name: 'Landingpage',
   components: {
     Map,
-    Reservation
+    RoomFilter
   }, data() {
     return {
-      showDialog: false
     }
   }, 
   methods: {
-        cancel() {
-            console.log('cancel');
-            this.showDialog = false;
-        },
-
-        confirm() {
-            console.log('confirm');
-            this.showDialog = false;
-        },
-
+    openRoomFilterModal() {
+      if (this.filter)  {
+        this.$router.push('Showroom')
+        return
+      }
+      this.$refs.roomFilter.openModal()
     },
+  },
+  setup() {
+        const store = useStore();
+
+        return {
+            filter: computed(() => store.state.filter )
+        }
+  }
 }
 </script>
 <style>

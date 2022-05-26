@@ -1,6 +1,7 @@
 <template>
+    <room-filter ref="roomFilter"/>
 
-    <div class="flex flex-wrap place-items-center sticky top-0 shadow-md mb-3 z-50">
+    <div class="flex flex-wrap place-items-center top-0 shadow-md mb-3 z-50"> <!-- TODO: Remove sticky from navbar or not -->
         <section class="mx-auto ">
             <!-- navbar -->
             <div class="flex justify-center justify-items-center bg-gray-900  text-white w-screen h-20">
@@ -15,9 +16,11 @@
                         </a></router-link>  
                 </div>
                   <div class="px-5  py-4  items-center">
-                    <router-link to="/showroom"><a class="text-xl font-medium font-heading hover:text-gray-300 duration-300">
+                    <!-- <router-link to="/showroom"> -->
+                        <a class="text-xl font-medium font-heading hover:text-gray-300 duration-300" @click="openRoomFilterModal">
                             Rooms
-                        </a></router-link>  
+                        </a>
+                    <!-- </router-link>   -->
                 </div>
                  <div class="px-5  py-4  items-center">
                     <router-link to="/about"><a class="text-xl font-medium font-heading hover:text-gray-300 duration-300">
@@ -49,6 +52,33 @@
     </div>
 
 </template>
+<script>
+import { computed } from '@vue/runtime-core';
+import { useStore } from 'vuex';
+import RoomFilter from '../components/RoomFilter.vue';
+
+export default {
+    components: {
+        RoomFilter
+    },
+    methods: {
+        openRoomFilterModal() {
+            if (this.filter)  {
+                this.$router.push('Showroom')
+                return
+            }
+            this.$refs.roomFilter.openModal()
+        },
+    },
+    setup() {
+        const store = useStore();
+
+        return {
+            filter: computed(() => store.state.filter )
+        }
+    }
+}
+</script>
 
 
 <style scoped>

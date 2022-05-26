@@ -10,14 +10,12 @@ export default createStore({
         types : [],
         type : null,
 
-    checkin: null,
-    checkout:null,
-    userId:0,
-    roomId:0,
-    reserveName:"",
-    num_of_guest:1,
+        userId:0,
+        roomId:0,
+        reserveName:"",
+        filter: null,
 
-    reserveDetail: {}
+        reserveDetail: {}
     },
     mutations:{
         setRoom(state,i){
@@ -32,10 +30,8 @@ export default createStore({
         setSingleTypeRoom(state,i){
             state.type = i.type
         },
-        setDateTime(state,i){
-            state.checkin= i.check_in_date
-            state.checkout= i.check_out_date
-            state.num_of_guest= i.total
+        setFilter(state, filter){
+            state.filter = filter
         },
         setReserveDetail(state,i){
             state.reserveDetail = i.data
@@ -70,11 +66,8 @@ export default createStore({
             console.log(type);
             commit('setSingleTypeRoom',{type})
         },
-        async saveDateTime({commit},i){
-            const check_in_date  = i.check_in_date
-            const check_out_date = i.check_out_date
-            const total = i.total
-            commit('setDateTime',{check_in_date,check_out_date,total})
+        async filterRoom({commit}, filter){
+            commit('setFilter', filter)
         },
         
         async saveReserveDetail({commit},i){
