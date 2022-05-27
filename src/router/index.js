@@ -8,6 +8,7 @@ import ShowRoom from '../views/ShowRoom.vue'
 import SingleRoom from '../views/SingleRoom.vue'
 import ManagePanel from '../views/ManagePanel.vue'
 import ReserveDetail from '../views/ReserveDetail.vue'
+import ReservationPage from '../views/ReservationPage.vue'
 
 const routes = [
   {
@@ -55,8 +56,12 @@ const routes = [
     path: '/reserve/detail',
     name: 'reserveDetail',
     component: ReserveDetail
+  },
+  {
+    path: '/reserve',
+    name: 'ReservationPage',
+    component: ReservationPage
   }
- 
 ]
 
 const router = createRouter({

@@ -14,6 +14,7 @@ export default createStore({
         roomId:0,
         reserveName:"",
         filter: null,
+        selectReservedType: null,
 
         reserveDetail: {}
     },
@@ -35,6 +36,9 @@ export default createStore({
         },
         setReserveDetail(state,i){
             state.reserveDetail = i.data
+        },
+        setReservedRoomType(state, roomType) {
+            state.selectReservedType = roomType
         }
         
     },
@@ -69,11 +73,13 @@ export default createStore({
         async filterRoom({commit}, filter){
             commit('setFilter', filter)
         },
-        
         async saveReserveDetail({commit},i){
             const data = i.reserveDetail
             console.log(data);
             commit('setReserveDetail',data)
+        },
+        reserveRoomType({commit}, roomType) {
+            commit('setReservedRoomType', roomType)
         }
        
     },

@@ -46,9 +46,9 @@
       <!-- Right Side -->
         <div id="filterBoxRight" class="col grid grid-rows-2 gap-2 mr-4">
           <button id="roomFilterCloseButton" type="button" @click="closeFilter"
-              class="btn px-3 py-2 text-center bg-pink-200 text-pink-400 hover:bg-pink-200 hover:text-pink-700 font-bold rounded-lg text-sm">Restore</button>
+              class=" px-3 py-2 text-center bg-pink-200 text-pink-400 hover:bg-pink-200 hover:text-pink-700 font-bold rounded-lg text-sm">Restore</button>
           <button type="button" @click="filterRoom"
-              class="btn px-3 py-2 text-center text-green-100 bg-green-600 rounded-lg hover:bg-green-700 hover:text-white font-bold text-sm">Search</button>
+              class=" px-3 py-2 text-center text-green-100 bg-green-600 rounded-lg hover:bg-green-700 hover:text-white font-bold text-sm">Search</button>
         </div>
       <!-- End Right Side -->
 
@@ -99,9 +99,14 @@
             </div>
           </div>
           <div class="flex justify-end ">
-            <button class="h-10 border shadow-md p-2 bg-green-500 hover:bg-green-600 transition ease-in-out font-semibold ">Reserve this room</button>
+            <button class="h-10 border shadow-md p-2 bg-green-500 hover:bg-green-600 transition ease-in-out font-semibold" @click="reserveRoom(item)">Reserve this room</button>
           </div>
         </div>
+      </div>
+    </div>
+    <div v-else>
+      <div class="mx-auto w-4/6 border shadow-md px-auto py-5 space-x-3 row">
+        <p class="text-center text-3xl font-semibold text-red-800">No Room Available</p>
       </div>
     </div>
     <!-- END display room list -->
@@ -238,6 +243,10 @@ export default {
 
       this.watchedChange = !this.watchedChange
     },
+    reserveRoom(roomType) {
+      this.$store.dispatch('reserveRoomType', roomType)
+      this.$router.push('/reserve')
+    }
   },
   async created() {
     let filter = this.$store.state.filter
