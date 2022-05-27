@@ -20,8 +20,12 @@
         </nav>
 
         <ul class="list-group mb-4" v-if="reservations.length > 0">
-            <li class="list-group-item" v-for="item in subReservation" :key="item.id">
-                <span>#{{item.id}}</span> {{item.reserved_name}} reserved room "{{item.room.room_name}}" of type "{{item.room.room_type.type_id}}"
+            <li class="list-group-item row" v-for="item in subReservation" :key="item.id">
+                <span class="col font-semibold">#{{item.id}}</span>
+                <span class="col">{{item.reserved_name}} reserved room "{{item.room.room_name}}" of type "{{item.room.room_type.type_id}}</span> 
+                <span class="col">Check in date: {{showFormattedDate(item.check_in_date)}},</span>
+                <span class="col">Check out date: {{showFormattedDate(item.check_out_date)}},</span>
+                <span class="col">Guests: {{item.num_of_guest}} {{item.num_of_guest > 1 ? 'people' : 'person'}}"</span>
             </li>
         </ul>
         
@@ -93,6 +97,11 @@ export default {
         selectPage(i) {
             if( this.page == i || i < 1 || i > this.max_page ) return
             this.changePage(i)
+        },
+        showFormattedDate(d) {
+            let date = new Date(d)
+            let option = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString("en-US", option)
         }
     },
     created() {
