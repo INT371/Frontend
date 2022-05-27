@@ -4,68 +4,68 @@
         <!-- Reservation Box -->
         <div class="border mx-auto bg-indigo-50 shadow-lg w-1/2 items-center my-4 px-4 py-3">
             <div class="text-2xl font-semibold mb-3 ">Reservation Confirmation</div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingEditTypeName" placeholder="Type Name" v-model="reservedName">
-                    <label for="floatingInput">Reserved name</label>
-                    <p class="text-base font-semibold text-red-500" v-if="reservedNameValidation.error">{{reservedNameValidation.message}}</p>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingEditTypeName" placeholder="Type Name" disabled :value="dateFormat(filter.check_in_date)">
-                    <label for="floatingInput">Check in date</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingEditTypeName" placeholder="Type Name" disabled :value="dateFormat(filter.check_out_date)">
-                    <label for="floatingInput">Check out date</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingEditTypeName" placeholder="Type Name" disabled :value="`${filter.num_of_person} ${filter.num_of_person <= 1 ? 'person' : 'people'}`">
-                    <label for="floatingInput">Guests</label>
-                </div>
-                <div v-if="roomType" class="mx-auto mb-4 border shadow-md px-3 py-2 space-x-3 row bg-gray-200">
-                    <div class="col-5">
-                    <!-- Carousel -->
-                    <div :id="'reservedCarouselExampleIndicators'+roomType.type_id" class="carousel slide"  data-bs-ride="true">
-                        <div class="carousel-indicators" :id="`reservedCarouselIndicator${roomType.type_id}`">
-                            <button type="button" v-for="(image, i) in roomType.images" :key="i" :data-bs-target="'#reservedCarouselExampleIndicators'+roomType.type_id" :data-bs-slide-to="i" :aria-label="`Slide ${i}`"></button>
-                        </div>
-                        <div class="carousel-inner" :id="`reservedCarouselInner${roomType.type_id}`">
-                            <div class="carousel-item" v-for="(image, i) in roomType.images" :key="i">
-                                <img :src="getImageUrl(image.image)" style="height: 250px;" class="d-block w-100" alt="">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" :data-bs-target="'#reservedCarouselExampleIndicators'+roomType.type_id" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" :data-bs-target="'#reservedCarouselExampleIndicators'+roomType.type_id" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                        </button>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingEditTypeName" placeholder="Type Name" v-model="reservedName">
+                <label for="floatingInput">Reserved name</label>
+                <p class="text-base font-semibold text-red-500" v-if="reservedNameValidation.error">{{reservedNameValidation.message}}</p>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingEditTypeName" placeholder="Type Name" disabled :value="dateFormat(filter.check_in_date)">
+                <label for="floatingInput">Check in date</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingEditTypeName" placeholder="Type Name" disabled :value="dateFormat(filter.check_out_date)">
+                <label for="floatingInput">Check out date</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingEditTypeName" placeholder="Type Name" disabled :value="`${filter.num_of_person} ${filter.num_of_person <= 1 ? 'person' : 'people'}`">
+                <label for="floatingInput">Guests</label>
+            </div>
+            <div v-if="roomType" class="mx-auto mb-4 border shadow-md px-3 py-2 space-x-3 row bg-gray-200">
+                <div class="col-5">
+                <!-- Carousel -->
+                <div :id="'reservedCarouselExampleIndicators'+roomType.type_id" class="carousel slide"  data-bs-ride="true">
+                    <div class="carousel-indicators" :id="`reservedCarouselIndicator${roomType.type_id}`">
+                        <button type="button" v-for="(image, i) in roomType.images" :key="i" :data-bs-target="'#reservedCarouselExampleIndicators'+roomType.type_id" :data-bs-slide-to="i" :aria-label="`Slide ${i}`"></button>
                     </div>
-                    <!-- End Carousel -->
-                    </div>
-                    <div class="col pt-3 grid grid-cols-1">
-                        <div>
-                            <div class="mb-1">
-                                <p class="text-2xl font-bold text-blue-800">{{ roomType.type_name }}</p>
-                            </div>
-                            <div class="mb-2">
-                                <p class="text-xl font-semibold text-gray-600">THB {{ roomType.price }}</p>
-                            </div>
-                            <div class="mb-1">
-                                <p class="text-base font-normal text-gray-600">{{ roomType.description }}</p>
-                            </div>
-                            <div>
-                                <p class="text-base">{{ roomType.max_capacity }} {{ roomType.max_capacity == 1 ? 'person' : 'people' }}</p>
-                            </div>
+                    <div class="carousel-inner" :id="`reservedCarouselInner${roomType.type_id}`">
+                        <div class="carousel-item" v-for="(image, i) in roomType.images" :key="i">
+                            <img :src="getImageUrl(image.image)" style="height: 250px;" class="d-block w-100" alt="">
                         </div>
                     </div>
-                </div>
-                <div class="flex flex-col">
-                    <button @click="reserveRoom" class="border py-2 rounded bg-green-600 hover:bg-green-700 transition ease-in-out text-white text-xl font-semibold">
-                        Confirm Reservation
+                    <button class="carousel-control-prev" type="button" :data-bs-target="'#reservedCarouselExampleIndicators'+roomType.type_id" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" :data-bs-target="'#reservedCarouselExampleIndicators'+roomType.type_id" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+                <!-- End Carousel -->
+                </div>
+                <div class="col pt-3 grid grid-cols-1">
+                    <div>
+                        <div class="mb-1">
+                            <p class="text-2xl font-bold text-blue-800">{{ roomType.type_name }}</p>
+                        </div>
+                        <div class="mb-2">
+                            <p class="text-xl font-semibold text-gray-600">THB {{ roomType.price }}</p>
+                        </div>
+                        <div class="mb-1">
+                            <p class="text-base font-normal text-gray-600">{{ roomType.description }}</p>
+                        </div>
+                        <div>
+                            <p class="text-base">{{ roomType.max_capacity }} {{ roomType.max_capacity == 1 ? 'person' : 'people' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <button @click="reserveRoom" class="border py-2 rounded bg-green-600 hover:bg-green-700 transition ease-in-out text-white text-xl font-semibold">
+                    Confirm Reservation
+                </button>
+            </div>
         </div>
     </div>
   
