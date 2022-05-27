@@ -104,7 +104,7 @@ export default {
                 check_in_date: this.filter.check_in_date,
                 check_out_date: this.filter.check_out_date,
                 reserved_name: this.reservedName,
-                num_of_guest: 2
+                num_of_guest: this.filter.num_of_person
             }
 
             const res = await axios.post(`${this.backend_url}/v1/reservation/reserve`, data).catch(function (error) {
@@ -133,8 +133,6 @@ export default {
             return date.toLocaleDateString('en-US', options)
         },
         addCarouselProperties(e) {
-
-            console.log(e)
 
             if (e == null) return
 
