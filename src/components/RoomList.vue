@@ -199,7 +199,7 @@
             <div class="modal-content" v-if="currentRoomType">
             <div class="modal-header">
                 <p class="modal-title text-xl font-semibold" id="manageRoomModalLabel">Manage Room of {{ currentRoomType.type_name }}</p>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="clearCurrentRoomType"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="closedManageRoomModal"></button>
             </div>
             <div class="modal-body">
                 <div id="room-manage-body-menu" class="mx-3 mb-3 row space-x-2">
@@ -230,8 +230,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="manageRoomCloseButton" class="btn btn-secondary" data-bs-dismiss="modal"  @click="clearCurrentRoomType">Close</button>
-                <button type="button" class="btn btn-primary" @click="addRoomType">Submit</button>
+                <button type="button" id="manageRoomCloseButton" class="btn btn-secondary" data-bs-dismiss="modal"  @click="clearRoom">Close</button>
             </div>
             </div>
         </div>
@@ -660,6 +659,13 @@ export default {
         resetRoomValidation(){
             this.roomValidation = { error: true, message: null }
         },
+        clearRoom() {
+            this.resetRoomValidation()
+            this.editedRoomId = null
+            this.addRoomName = ''
+            this.isAddRoom = false
+            this.editRoomName = ''
+        },
         async addRoom() {
             let isPassed = this.validateRoom(this.addRoomName)
             if(!isPassed || !confirm(`Do you want to add room ${this.addRoomName}`)) return
@@ -685,7 +691,7 @@ export default {
                     room_name: data.room_name
                 }
                 this.currentRoomType.rooms.push(newRoom)
-                this.resetRoomValidation()
+                this.isAddRoomToggle()
             }
         },
         editRoomToggle(roomId){
