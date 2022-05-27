@@ -15,7 +15,10 @@
             @click="this.case=99"
                 class="inline-block py-2 px-4 text-blue rounded-xl  font-semibold border hover:shadow-inner"
                 :class="{'bg-gray-600': this.case == 99, 'bg-white': this.case != 99}"
-            >Document Manage</button>
+            >
+            <!-- Document Manage -->
+            Reservation Details
+            </button>
         </li>
 
 
